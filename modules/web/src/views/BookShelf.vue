@@ -50,7 +50,7 @@
               size="large"
               class="setting-connect"
               :class="{ 'no-point': newConnect }"
-              @click="setIP"
+              @click="setLegadoRetmoteUrl"
             >
               {{ connectStatus }}
             </el-tag>
@@ -85,7 +85,11 @@ import { useBookStore } from "@/store";
 import githubUrl from "@/assets/imgs/github.png";
 import { useLoading } from "@/hooks/loading";
 import { Search as SearchIcon } from "@element-plus/icons-vue";
-import API from "@api";
+import API, {
+  legado_http_entry_point,
+  validatorHttpUrl,
+  setLeagdoHttpUrl,
+} from "@api";
 
 export default defineComponent({
   beforeRouteEnter: (to, from, next) => {
@@ -98,6 +102,8 @@ export default defineComponent({
             // @ts-ignore
             vm.saveReadConfig(data);
           });
+        } else {
+          next();
         }
       })
       .catch(() => next());
@@ -175,35 +181,39 @@ export default defineComponent({
     const connectStatus = computed(() => store.connectStatus);
     const connectType = computed(() => store.connectType);
     const newConnect = computed(() => store.newConnect);
-    const setIP = () => {
+    const setLegadoRetmoteUrl = () => {
       ElMessageBox.prompt(
-        "请输入 IP 和端口 ( 如：127.0.0.1:9527 或者通过内网穿透的地址)",
+        "请输入 后端地址 ( 如：http://127.0.0.1:9527 或者通过内网穿透的地址)",
         "提示",
         {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          inputPattern:
-            /^[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?:([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-6][0-5][0-5][0-3][0-5])$/,
-          inputErrorMessage: "url 形式不正确",
+          inputPlaceholder: legado_http_entry_point,
+          inputValidator: (value) => {
+            try {
+              validatorHttpUrl(value);
+            } catch (e) {
+              return e?.cause?.message ?? e.message;
+            }
+            return true;
+          },
           beforeClose: (action, instance, done) => {
             if (action === "confirm") {
               store.setNewConnect(true);
               instance.confirmButtonLoading = true;
               instance.confirmButtonText = "校验中……";
               // instance.inputValue
-              const ip = instance.inputValue;
-              API.testLeagdoHttpUrlConnection("http://" + ip)
+              const url = new URL(instance.inputValue);
+              API.testLeagdoHttpUrlConnection(url)
                 //API.getBookShelf()
                 .then(function (configStr) {
                   saveReadConfig(configStr);
                   instance.confirmButtonLoading = false;
                   store.setConnectType("success");
-                  store.setConnectStatus("已连接 " + ip);
                   store.clearSearchBooks();
                   store.setNewConnect(false);
-                  API.setLeagdoHttpUrl("http://" + ip);
-                  //持久化
-                  localStorage.setItem("remoteIp", ip);
+                  setLeagdoHttpUrl(url);
+                  store.setConnectStatus("已连接 " + url.toString());
                   fetchBookShelfData();
                   done();
                 })
@@ -316,7 +326,7 @@ export default defineComponent({
         } else {
           ElMessage.error(response.data.errorMsg ?? "后端返回格式错误！");
         }
-        store.setConnectStatus("已连接 " + API.legado_http_origin);
+        store.setConnectStatus("已连接 " + legado_http_entry_point);
         store.setNewConnect(false);
       });
     };
@@ -337,14 +347,14 @@ export default defineComponent({
           store.setConnectType("danger");
           store.setConnectStatus("连接异常");
           ElMessage.error(
-            "后端连接失败异常，请检查阅读WEB服务或者设置其它可用IP",
+            "后端连接失败异常，请检查阅读WEB服务或者设置其它可用链接",
           );
           store.setNewConnect(false);
           throw error;
         });
     });
     return {
-      setIP,
+      setLegadoRetmoteUrl,
       isNight,
       connectStatus,
       connectType,

@@ -1,5 +1,7 @@
 package io.legado.app.api.controller
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
 import io.legado.app.api.ReturnData
@@ -20,6 +22,7 @@ import io.legado.app.model.ReadBook
 import io.legado.app.model.localBook.LocalBook
 import io.legado.app.model.webBook.WebBook
 import io.legado.app.utils.GSON
+import io.legado.app.utils.LogUtils
 import io.legado.app.utils.cnCompare
 import io.legado.app.utils.fromJsonObject
 import io.legado.app.utils.printOnDebug
@@ -28,6 +31,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import splitties.init.appCtx
 import java.io.File
+import java.util.WeakHashMap
 import java.util.concurrent.TimeUnit
 
 object BookController {
@@ -35,6 +39,7 @@ object BookController {
     private lateinit var book: Book
     private var bookSource: BookSource? = null
     private var bookUrl: String = ""
+    private val defaultCoverCache by lazy { WeakHashMap<Drawable, Bitmap>() }
 
     /**
      * 书架所有书籍
@@ -65,6 +70,8 @@ object BookController {
     fun getCover(parameters: Map<String, List<String>>): ReturnData {
         val returnData = ReturnData()
         val coverPath = parameters["path"]?.firstOrNull()
+        val startAt = System.currentTimeMillis()
+        LogUtils.d("BookController", "Start getCover($startAt) $coverPath")
         val ftBitmap = ImageLoader.loadBitmap(appCtx, coverPath)
             .override(84, 112)
             .centerCrop()
@@ -72,14 +79,27 @@ object BookController {
         return try {
             returnData.setData(ftBitmap.get(3, TimeUnit.SECONDS))
         } catch (e: Exception) {
-            val defaultBitmap = Glide.with(appCtx)
-                .asBitmap()
-                .load(BookCover.defaultDrawable.toBitmap())
-                .override(84, 112)
-                .centerCrop()
-                .submit()
-                .get()
-            returnData.setData(defaultBitmap)
+            LogUtils.d("BookController", "Error getCover($startAt) $coverPath\n$e")
+            try {
+                val cached = defaultCoverCache[BookCover.defaultDrawable]
+                if (cached == null) {
+                    val defaultBitmap = Glide.with(appCtx)
+                        .asBitmap()
+                        .load(BookCover.defaultDrawable.toBitmap())
+                        .override(84, 112)
+                        .centerCrop()
+                        .submit()
+                        .get(3, TimeUnit.SECONDS)
+                    defaultCoverCache[BookCover.defaultDrawable] = defaultBitmap
+                    returnData.setData(defaultBitmap)
+                } else {
+                    returnData.setData(cached)
+                }
+            } catch (e: Exception) {
+                returnData.setErrorMsg(e.localizedMessage ?: "getCover error")
+            }
+        } finally {
+            LogUtils.d("BookController", "End getCover($startAt) $coverPath")
         }
     }
 

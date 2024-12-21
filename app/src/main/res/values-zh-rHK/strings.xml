@@ -1,6 +1,7 @@
 <resources>
     <!--App-->
     <string name="app_name">閲讀</string>
+    <string name="app_name_a">閲讀·A</string>
     <string name="receiving_shared_label">閲讀·搜尋</string>
     <string name="tip_perm_request_storage">閲讀需要訪問存儲卡權限，請前往「設定」—「應用程式權限」—開啟所需要的權限</string>
 
@@ -27,6 +28,7 @@
     <string name="draw">提醒</string>
     <string name="edit">編輯</string>
     <string name="delete">刪除</string>
+    <string name="delete_select_group">刪除當前分組</string>
     <string name="replace">替換</string>
     <string name="replace_purify">替換淨化</string>
     <string name="replace_purify_desc">配置替換淨化規則</string>
@@ -764,6 +766,7 @@
     <string name="donate_summary">您嘅支援喺我更新嘅動力</string>
     <string name="about_summary">公眾號[开源阅读软件]</string>
     <string name="read_record">閲讀記錄</string>
+    <string name="del_read_record">刪除閲讀記錄</string>
     <string name="read_record_summary">閱讀時間記錄</string>
     <string name="local_tts">本地TTS</string>
     <string name="thread_count">線程數</string>
@@ -807,9 +810,12 @@
     <string name="rule_subscription">規則訂閱</string>
     <string name="rule_sub_empty_msg">添加大佬們提供的規則匯入地址 添加後點擊可匯入規則</string>
     <string name="get_book_progress">拉取雲端進度</string>
+    <string name="cover_book_progress">覆蓋雲端進度</string>
     <string name="current_progress_exceeds_cloud">目前進度超過雲端進度,係咪同步?</string>
     <string name="sync_book_progress_t">同步閱讀進度</string>
     <string name="sync_book_progress_s">進入退出閱讀介面時同步閱讀進度</string>
+    <string name="sync_book_progress_plus_t">同步增強</string>
+    <string name="sync_book_progress_plus_s">重新進入頁面（熄屏、返回背景等）或者當網絡可用時同步雲端進度</string>
     <string name="create_bookmark_error">建立書籤失敗</string>
     <string name="single_url">單URL</string>
     <string name="export_bookshelf">導出書單</string>
@@ -906,6 +912,7 @@
     <string name="double_page_horizontal">平板/橫屏雙頁</string>
     <string name="open_in_browser">瀏覽器打開</string>
     <string name="copy_url">複製url</string>
+    <string name="full_screen">全屏</string>
     <string name="open_fun">打開方式</string>
     <string name="use_browser_open">是否使用外部瀏覽器打開?</string>
     <string name="see">查看</string>
@@ -1128,9 +1135,11 @@
     <string name="change_source_delay">换源间隔</string>
     <string name="open_book_info_by_click_title">点击书名打开详情</string>
     <string name="export_wait">等待导出</string>
+    <string name="sync_book_progress_success">進度同步成功</string>
     <string name="default_home_page">默认主页</string>
     <string name="show_bookshelf_fast_scroller">显示快速滚动条</string>
     <string name="export_all_use_book_source">导出所有书的书源</string>
+    <string name="cloud_progress_exceeds_current">雲端進度超過目前進度，是否同步？</string>
     <string name="keep_enable">保留启用状态</string>
     <string name="preview_image_by_click">点击预览图片</string>
     <string name="screen_portrait_reversed">反向竖屏</string>
@@ -1166,4 +1175,5 @@
     <string name="read_aloud_read_phone_state_permission_rationale">阅读需要读取手机状态实现来电期间暂停朗读功能</string>
     <string name="read_aloud_by_media_button_title">耳机按键启动朗读</string>
     <string name="read_aloud_by_media_button_summary">通过耳机按键来启动朗读</string>
+    <string name="show_same_source">显示重复书源</string>
 </resources>

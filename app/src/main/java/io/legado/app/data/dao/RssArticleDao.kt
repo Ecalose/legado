@@ -32,11 +32,19 @@ interface RssArticleDao {
     @Update
     fun update(vararg rssArticle: RssArticle)
 
+    @Query("update rssArticles set origin = :origin where origin = :oldOrigin")
+    fun updateOrigin(origin: String, oldOrigin: String)
+
     @Query("delete from rssArticles where origin = :origin")
     fun delete(origin: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertRecord(vararg rssReadRecord: RssReadRecord)
 
+    @get:Query("select count(1) from rssReadRecords")
+    val countRead: Int
+
+    @Query("delete from rssReadRecords")
+    fun deleteRecord()
 
 }

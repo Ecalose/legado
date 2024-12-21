@@ -1,6 +1,7 @@
 <resources>
 <!--App-->
     <string name="app_name">Legado</string>
+    <string name="app_name_a">Legado·A</string>
     <string name="receiving_shared_label">Legado·tìm kiếm</string>
     <string name="tip_perm_request_storage">Legado cần quyền truy cập bộ nhớ để tìm và đọc sách. vui lòng vào &amp;quot;Cài đặt ứng dụng&amp;quot; để cho phép &amp;quot;Quyền lưu trữ&amp;quot;.</string>
 
@@ -28,6 +29,7 @@
     <string name="draw">Cảnh báo</string>
     <string name="edit">Sửa đổi</string>
     <string name="delete">Xóa</string>
+    <string name="delete_select_group">Xóa nhóm hiện tại</string>
     <string name="delete_all">Xóa tất cả</string>
     <string name="custom_export_section">Chương xuất tùy chỉnh của epub</string>
     <string name="replace">Thay thế</string>
@@ -768,6 +770,7 @@ Còn </string>
     <string name="donate_summary">Đóng góp của bạn làm cho ứng dụng này tốt hơn</string>
     <string name="about_summary">Tài khoản chính thức của WeChat [开源阅读软件]</string>
     <string name="read_record">Đọc bản ghi</string>
+    <string name="del_read_record">Xóa lịch sử đọc</string>
     <string name="read_record_summary">Đọc tóm tắt bản ghi</string>
     <string name="local_tts">TTS địa phương</string>
     <string name="thread_count">Số lượng chủ đề</string>
@@ -808,9 +811,12 @@ Còn </string>
     <string name="rule_subscription">Quy tắc đăng ký</string>
     <string name="rule_sub_empty_msg">Thêm địa chỉ nhập quy tắc do các ông chủ cung cấp\\nNhấp để nhập quy tắc sau khi thêm</string>
     <string name="get_book_progress">Kéo tiến độ đám mây</string>
+    <string name="cover_book_progress">Phủ sóng tiến độ trên đám mây</string>
     <string name="current_progress_exceeds_cloud">Tiến độ hiện tại vượt quá tiến độ đám mây. Bạn có muốn đồng bộ hóa?</string>
     <string name="sync_book_progress_t">Tiến độ đọc đồng bộ</string>
     <string name="sync_book_progress_s">Đồng bộ tiến độ đọc khi vào/ra khỏi giao diện đọc</string>
+    <string name="sync_book_progress_plus_t">Cải Tiến Đồng Bộ</string>
+    <string name="sync_book_progress_plus_s">Đồng bộ tiến độ trên đám mây khi quay lại trang (ví dụ: sau khi tắt màn hình, quay trở lại từ nền, v.v.) hoặc khi mạng trở nên khả dụng</string>
     <string name="create_bookmark_error">Không thể tạo dấu trang</string>
     <string name="single_url">URL đơn</string>
     <string name="export_bookshelf">Xuất bookshelf</string>
@@ -906,6 +912,7 @@ Còn </string>
     <string name="double_page_horizontal">Trang kép dạng máy tính bảng/ngang</string>
     <string name="open_in_browser">mở trong trình duyệt</string>
     <string name="copy_url">sao chép url</string>
+    <string name="full_screen">Toàn màn hình</string>
     <string name="open_fun">mở chức năng</string>
     <string name="use_browser_open">Mở bằng trình duyệt bên ngoài?</string>
     <string name="see">xem</string>
@@ -1127,9 +1134,11 @@ Còn </string>
     <string name="change_source_delay">换源间隔</string>
     <string name="open_book_info_by_click_title">点击书名打开详情</string>
     <string name="export_wait">等待导出</string>
+    <string name="sync_book_progress_success">" Đồng bộ hóa tiến trình thành công"</string>
     <string name="default_home_page">默认主页</string>
     <string name="show_bookshelf_fast_scroller">显示快速滚动条</string>
     <string name="export_all_use_book_source">导出所有书的书源</string>
+    <string name="cloud_progress_exceeds_current">The cloud progress exceeds the current progress. Do you want to synchronize?</string>
     <string name="keep_enable">保留启用状态</string>
     <string name="preview_image_by_click">点击预览图片</string>
     <string name="screen_portrait_reversed">反向竖屏</string>
@@ -1165,4 +1174,5 @@ Còn </string>
     <string name="read_aloud_read_phone_state_permission_rationale">阅读需要读取手机状态实现来电期间暂停朗读功能</string>
     <string name="read_aloud_by_media_button_title">耳机按键启动朗读</string>
     <string name="read_aloud_by_media_button_summary">通过耳机按键来启动朗读</string>
+    <string name="show_same_source">显示重复书源</string>
 </resources>

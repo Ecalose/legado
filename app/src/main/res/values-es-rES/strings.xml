@@ -2,6 +2,7 @@
 <resources>
     <!--App-->
     <string name="app_name">Legado</string>
+    <string name="app_name_a">Legado·A</string>
     <string name="receiving_shared_label">Legado·buscador</string>
     <string name="tip_perm_request_storage">Legado necesita de acceso de almacenamineto para buscar y leer libros. Por favor, diríjase a los "Ajustes de la aplicación" para conceder el "Permiso de almacenamineto".</string>
 
@@ -29,6 +30,7 @@
     <string name="draw">Advertencia</string>
     <string name="edit">Editar</string>
     <string name="delete">Borrar</string>
+    <string name="delete_select_group">Eliminar grupo seleccionado</string>
     <string name="delete_all">Borrar todo</string>
     <string name="replace">Reemplazar</string>
     <string name="replace_purify">Reemplazo</string>
@@ -767,6 +769,7 @@
     <string name="donate_summary">Su donación mejora esta aplicación</string>
     <string name="about_summary">Cuenta oficial de Wechat [开源阅读软件]</string>
     <string name="read_record">Leer historial</string>
+    <string name="del_read_record">Eliminar historial de lectura</string>
     <string name="read_record_summary">Leer resumen del historial</string>
     <string name="local_tts">TTS local</string>
     <string name="thread_count">Recuento de subprocesos</string>
@@ -806,9 +809,12 @@
     <string name="rule_subscription">Suscripción de reglsa</string>
     <string name="rule_sub_empty_msg">添加大佬们提供的规则导入地址\n添加后点击可导入规则</string>
     <string name="get_book_progress">Obtener progreso en la nube</string>
+    <string name="cover_book_progress">Cobertura del progreso en la nube</string>
     <string name="current_progress_exceeds_cloud">El progreso actual excede el progreso de la nube. ¿Quieres sincronizar?</string>
     <string name="sync_book_progress_t">Progreso de lectura sincronizado</string>
     <string name="sync_book_progress_s">Sincronizar el progreso de la lectura al entrar y salir de la pantalla de lectura</string>
+    <string name="sync_book_progress_plus_t">Mejora de Sincronización</string>
+    <string name="sync_book_progress_plus_s">Sincronizar el progreso en la nube al volver a entrar en la página (por ejemplo, tras apagar la pantalla o al regresar desde el fondo) o cuando la red esté disponible</string>
     <string name="create_bookmark_error">No se pudo marcar</string>
     <string name="single_url">URL única</string>
     <string name="export_bookshelf">Exportar lista de libros</string>
@@ -906,6 +912,7 @@
     <string name="double_page_horizontal">平板/横屏双页</string>
     <string name="open_in_browser">浏览器打开</string>
     <string name="copy_url">拷贝url</string>
+    <string name="full_screen">全屏</string>
     <string name="open_fun">打开方式</string>
     <string name="use_browser_open">是否使用外部浏览器打开?</string>
     <string name="see">查看</string>
@@ -1129,8 +1136,10 @@
     <string name="open_book_info_by_click_title">点击书名打开详情</string>
     <string name="export_wait">等待导出</string>
     <string name="default_home_page">默认主页</string>
+    <string name="sync_book_progress_success">" Sincronización del progreso exitosa"</string>
     <string name="show_bookshelf_fast_scroller">显示快速滚动条</string>
     <string name="export_all_use_book_source">导出所有书的书源</string>
+    <string name="cloud_progress_exceeds_current">The cloud progress exceeds the current progress. Do you want to synchronize?</string>
     <string name="keep_enable">保留启用状态</string>
     <string name="preview_image_by_click">点击预览图片</string>
     <string name="screen_portrait_reversed">反向竖屏</string>
@@ -1166,4 +1175,5 @@
     <string name="read_aloud_read_phone_state_permission_rationale">阅读需要读取手机状态实现来电期间暂停朗读功能</string>
     <string name="read_aloud_by_media_button_title">耳机按键启动朗读</string>
     <string name="read_aloud_by_media_button_summary">通过耳机按键来启动朗读</string>
+    <string name="show_same_source">显示重复书源</string>
 </resources>

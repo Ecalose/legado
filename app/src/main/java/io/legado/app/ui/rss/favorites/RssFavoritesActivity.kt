@@ -3,13 +3,18 @@
 package io.legado.app.ui.rss.favorites
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.SubMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.lifecycleScope
+import io.legado.app.R
 import io.legado.app.base.BaseActivity
 import io.legado.app.constant.AppLog
 import io.legado.app.data.appDb
 import io.legado.app.databinding.ActivityRssFavoritesBinding
+import io.legado.app.lib.dialogs.alert
 import io.legado.app.lib.theme.accentColor
 import io.legado.app.utils.gone
 import io.legado.app.utils.viewbindingdelegate.viewBinding
@@ -28,6 +33,7 @@ class RssFavoritesActivity : BaseActivity<ActivityRssFavoritesBinding>() {
     override val binding by viewBinding(ActivityRssFavoritesBinding::inflate)
     private val adapter by lazy { TabFragmentPageAdapter() }
     private var groupList = mutableListOf<String>()
+    private var groupsMenu: SubMenu? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         initView()
@@ -38,6 +44,32 @@ class RssFavoritesActivity : BaseActivity<ActivityRssFavoritesBinding>() {
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.tabLayout.setSelectedTabIndicatorColor(accentColor)
+    }
+
+    override fun onCompatCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.rss_favorites, menu)
+        groupsMenu = menu.findItem(R.id.menu_group)?.subMenu
+        upGroupsMenu()
+        return super.onCompatCreateOptionsMenu(menu)
+    }
+
+    private fun upGroupsMenu() = groupsMenu?.let { subMenu ->
+        subMenu.removeGroup(R.id.menu_group)
+        groupList.forEachIndexed { index, it ->
+            subMenu.add(R.id.menu_group, Menu.NONE, index, it)
+        }
+    }
+
+    override fun onCompatOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.groupId == R.id.menu_group) {
+            binding.viewPager.setCurrentItem(item.order)
+        } else {
+            when (item.itemId) {
+                R.id.menu_del_group -> deleteGroup()
+                R.id.menu_del_all -> deleteAll()
+            }
+        }
+        return super.onCompatOptionsItemSelected(item)
     }
 
     private fun upFragments() {
@@ -52,7 +84,32 @@ class RssFavoritesActivity : BaseActivity<ActivityRssFavoritesBinding>() {
                 } else {
                     binding.tabLayout.visible()
                 }
+                if (groupsMenu != null) {
+                    upGroupsMenu()
+                }
                 adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun deleteGroup() {
+        alert(R.string.draw) {
+            val item = binding.viewPager.currentItem
+            val group = groupList[item]
+            setMessage(getString(R.string.sure_del) + "\n<" + group + ">" + getString(R.string.group))
+            noButton()
+            yesButton {
+                appDb.rssStarDao.deleteByGroup(group)
+            }
+        }
+    }
+
+    private fun deleteAll() {
+        alert(R.string.draw) {
+            setMessage(getString(R.string.sure_del) + "\n<" + getString(R.string.all) + ">" + getString(R.string.favorite))
+            noButton()
+            yesButton {
+                appDb.rssStarDao.deleteAll()
             }
         }
     }
